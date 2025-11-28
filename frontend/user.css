@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+        
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header-absolute{
+    min-height: 15vh;
+    width: 100%;
+    padding: 10px;
+    background-color: #828282;
+    border-bottom: 2px solid #49423d;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    display: flex;
+}
+
+.avatar-container{
+    height: 70px;
+    width: 70px;
+    align-self: center;
+    margin-left: 10px;
+
+}
+.button_allcourses{
+    width: 120px;
+    height: 50px;
+    align-self: center;
+    margin: 10px;
+    border-radius: 10px;
+    border: 0px;
+    transition: background-color 0.1s;
+    border: 2px, solid, #49423d;
+}
+
+.button_allcourses:hover{
+    background-color: #C0C0C0;
+}
+
+
+.button_mycourses{
+    width: 120px;
+    height: 50px;
+    align-self: center;
+    margin: 10px;
+    border-radius: 10px;
+    border: 0px;
+    transition: background-color 0.1s;
+    border: 2px, solid, #49423d;
+
+}
+
+.button_mycourses:hover{
+    background-color: #C0C0C0;
+}
+
+.avatar-container img{
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    text-align: center;
+    align-self: center;
+    border: 2px solid #49423d;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    margin-top: 30px;
+}
+.image_container{
+    height: 300px;
+    width: 300px;
+    align-self: center;
+}
+
+.image_container img{
+    height: 100%;
+    width: 100%;
+}
+.email{
+    font-size: 25px;
+}
+.exit{
+    height: 40px;
+    width: 50px;
+    color: white;
+    background-color: red;
+    border: 0px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+.exit:hover{
+    background-color: #8b0000;
+    
+}

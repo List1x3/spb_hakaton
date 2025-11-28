@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Регистрация</h2>
-        <form id="registrationForm">
+        <form id="registrationForm" method="post" action="{{ url_for('registration') }}">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>

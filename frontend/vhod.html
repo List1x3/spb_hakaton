@@ -14,7 +14,7 @@
             Неверный логин или пароль!
         </div>
         
-        <form id="loginForm">
+        <form id="loginForm" method="post" action="{{ url_for('login') }}">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>
