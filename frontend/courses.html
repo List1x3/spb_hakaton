@@ -11,7 +11,7 @@
     <div class="header-absolute">
         <div class="avatar-container">
             
-            <img src="./{{ user.username }}_files/Unknown_person.jpg" alt="Аватар" class="avatar" onerror="this.src=Unknown_person.jpg" onclick="redirect_to_user('{{ user.username }}')">
+            <img src="./{{ user.username }}_files/Unknown_person.jpg" alt="Аватар" class="avatar" onerror="this.src='Unknown_person.jpg'" onclick="redirect_to_user('{{ user.username }}')">
         </div>
         <button class="button_allcourses">ВСЕ КУРСЫ</button>
         <button class="button_mycourses"> МОИ КУРСЫ</button>
@@ -25,7 +25,17 @@
             <button type="submit" class="submits">Найти</button>
         </form>
         <div class="courses">
-
+            {% for course in courses %}
+            <div class="block_course">
+                <div class="block_heading">
+                    {{ course.name }}
+                </div>
+                <div class="block_name">{{ course.author }}</div>
+                <hr>
+                <div class="block_description">{{ course.description }}</div>
+                
+            </div>
+            {% endfor %}
 
         </div>
     </div>
