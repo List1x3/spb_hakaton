@@ -56,7 +56,8 @@ body {
 .container {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 20px;
     width: 100%;
-    max-width: 150vh;
+    max-width: 100vh;
+    
     display: flex;
     flex-direction: column;
     margin-top: 40px;
@@ -68,4 +69,41 @@ body {
     border-style: solid;
     border-color: rgb(73, 66, 61);
     border-image: initial;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+        
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: lightgreen;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn:hover {
+    background-color: green;
+}
+.opis{
+    width: 100%;
+    min-height: 100px;
 }
