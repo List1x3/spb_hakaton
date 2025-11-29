@@ -1,13 +1,14 @@
 import os
 
 import flask
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from database import db, init_db
 from models import User
 
 
-def encryption(data) -> str:
-    return str(hash(data))
+def hash_password(password: str) -> str:
+    return generate_password_hash(password)
 
 
 app = flask.Flask(__name__, template_folder='../../frontend', static_folder='../../frontend')
@@ -28,7 +29,7 @@ def sign_up():
     if flask.request.method == 'POST':
         username = flask.request.form["username"]
         email = flask.request.form["email"]
-        hashed_password = encryption(flask.request.form["password"])
+        hashed_password = hash_password(flask.request.form["password"])
 
         existing_user = User.query.filter_by(username=username).first()
         existing_email = User.query.filter_by(email=email).first()
@@ -50,9 +51,9 @@ def sign_up():
 def sign_in():
     if flask.request.method == 'POST':
         username = flask.request.form["username"]
-        hashed_password = encryption(flask.request.form["password"])
+        password_candidate = flask.request.form["password"]
         user = User.query.filter_by(username=username).first()
-        if user and user.password == hashed_password:
+        if user and check_password_hash(user.password, password_candidate):
             flask.session["user_id"] = user.id
             return flask.redirect(flask.url_for('user_page'))
         else:
