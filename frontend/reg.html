@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="reg.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='reg.css') }}">
 </head>
 <body>
     <div class="container">
         <h2>Регистрация</h2>
-        <form id="registrationForm" method="post" action="{{ url_for('registration') }}">
+        <form id="registrationForm" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>
@@ -29,7 +29,7 @@
         </form>
         
         <div class="login-link">
-            <p>Уже есть аккаунт? <a href="vhod.html">Войти</a></p>
+            <p>Уже есть аккаунт? <a href="{{ url_for('sign_in') }}">Войти</a></p>
         </div>
     </div>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
-    <link rel="stylesheet" href="vhod.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='vhod.css') }}">
 </head>
 <body>
     <div class="container">
@@ -14,7 +14,7 @@
             Неверный логин или пароль!
         </div>
         
-        <form id="loginForm" method="post" action="{{ url_for('login') }}">
+        <form id="loginForm" method="post">
             <div class="form-group">
                 <label for="username">Логин:</label>
                 <input type="text" id="username" name="username" required>
@@ -29,7 +29,7 @@
         </form>
         
         <div class="register-link">
-            <p>Нет аккаунта? <a href="reg.html">Зарегистрироваться</a></p>
+            <p>Нет аккаунта? <a href="{{ url_for('sign_up') }}">Зарегистрироваться</a></p>
         </div>
     </div>  
 </body>
