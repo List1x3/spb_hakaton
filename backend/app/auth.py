@@ -1,19 +1,24 @@
+import os
+
 import flask
-from database import users
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from database import db, init_db
 from models import User
 
 
-def encryption(data) -> int:
-    return hash(data)
+def hash_password(password: str) -> str:
+    return generate_password_hash(password)
 
 
-#probably frontend folder shoud be restructured
 app = flask.Flask(__name__, template_folder='../../frontend', static_folder='../../frontend')
-#todo
-app.secret_key = 'extremely_secure'
+app.secret_key = os.getenv('SECRET_KEY', 'extremely_secure')
+init_db(app)
+
+with app.app_context():
+    db.create_all()
 
 
-#probably should be changed with normal home page for guests?
 @app.route('/')
 def home():
     return flask.redirect(flask.url_for('sign_up'))
@@ -22,24 +27,21 @@ def home():
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if flask.request.method == 'POST':
-        created_user: User
         username = flask.request.form["username"]
         email = flask.request.form["email"]
-        hashed_password = encryption(flask.request.form["password"])
-        is_successful = False
-        #need data base
-        if len(list(filter(lambda x: x.username == username, users))) > 0:
+        hashed_password = hash_password(flask.request.form["password"])
+
+        existing_user = User.query.filter_by(username=username).first()
+        existing_email = User.query.filter_by(email=email).first()
+
+        if existing_user:
             print('User with such username already exists')
-            #need data base
-        elif len(list(filter(lambda x: x.email == email, users))) > 0:
-            #need ui
+        elif existing_email:
             print('User with such email already exists')
         else:
             created_user = User(username=username, email=email, password=hashed_password)
-            #need data base
-            users.append(created_user)
-            is_successful = True
-        if is_successful:
+            db.session.add(created_user)
+            db.session.commit()
             flask.session["user_id"] = created_user.id
             return flask.redirect(flask.url_for('user_page'))
     return flask.render_template('reg.html')
@@ -49,29 +51,29 @@ def sign_up():
 def sign_in():
     if flask.request.method == 'POST':
         username = flask.request.form["username"]
-        hashed_password = encryption(flask.request.form["password"])
-        is_successful = False
-        #need data base
-        such_users = list(filter(lambda x: x.username == username, users))
-        #need data base
-        if len(such_users) == 1 and such_users[0].password == hashed_password:
-            is_successful = True
-        if is_successful:
-            flask.session["user_id"] = such_users[0].id
+        password_candidate = flask.request.form["password"]
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password_candidate):
+            flask.session["user_id"] = user.id
             return flask.redirect(flask.url_for('user_page'))
         else:
-            #need ui
             print("Invalid username or password")
     return flask.render_template('vhod.html')
 
 
 @app.route('/user_page')
 def user_page():
-    user_id = flask.session.pop('user_id')
-    user = list(filter(lambda x: x.id == user_id, users))[0]
-    #need data base
-    return flask.render_template('user.html', user=user.__dict__, avatars={123: "bob.jpg"})
+    user_id = flask.session.get('user_id')
+    if not user_id:
+        return flask.redirect(flask.url_for('sign_in'))
+
+    user = User.query.get(user_id)
+    if not user:
+        flask.session.pop('user_id', None)
+        return flask.redirect(flask.url_for('sign_in'))
+
+    return flask.render_template('user.html', user=user, avatars={user.id: "bob.jpg"})
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

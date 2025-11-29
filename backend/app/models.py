@@ -1,12 +1,14 @@
-class User():
-    id: int = 0
-    username: str
-    email: str
-    password: int
-    avatar: str
-    def __init__(self, username, email, password, avatar = "default_avatar.jpg"):
-        self.id = hash(username) ^ hash(email) ^ hash(password) ^ hash(avatar) #needed only without normal data base
-        self.username = username
-        self.email = email
-        self.password = password
-        self.avatar = avatar
+from database import db
+
+
+class User(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), nullable=False, unique=True)
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)
+    avatar = db.Column(db.String(255), nullable=False, default="default_avatar.jpg")
+
+    def __repr__(self):
+        return f"<User {self.username}>"
