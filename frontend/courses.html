@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)file:///Users/maksimzajcev/Documents/GitHub/spb_hakaton/frontend/courses.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}</title>
+    <link rel="stylesheet" href="courses.css">
+
+</head>
+<body>
+    <div class="header-absolute">
+        <div class="avatar-container">
+            
+            <img src="./{{ user.username }}_files/Unknown_person.jpg" alt="Аватар" class="avatar" onerror="this.src=&#39;Unknown_person.jpg&#39;" onclick="redirect_to_user(&quot;{{ user.username }}&quot;)">
+        </div>
+        <button class="button_allcourses">ВСЕ КУРСЫ</button>
+        <button class="button_mycourses"> МОИ КУРСЫ</button>
+    </div>
+    <div class="container">
+        <h3>МОИ КУРСЫ</h3>
+        <hr>
+        <form id="search_my_courses" method="post" action="file:///Users/maksimzajcev/Documents/GitHub/spb_hakaton/frontend/%7B%7B%20url_for(&#39;search_courses&#39;)%20%7D%7D">
+            <label for="search">Поиск по названию:</label><br>
+            <input type="search" class="find">
+            <button type="submit" class="submits">Найти</button>
+        </form>
+        <div class="courses">
+
+
+        </div>
+    </div>
+    <script>
+        function redirect_to_user(username){
+            const url = "{{ url_for('profile', user='')}}" + user.username;
+            window.location.href = url;
+        }
+    </script>
+
+
+</body></html>
