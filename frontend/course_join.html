@@ -3,7 +3,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ user.username }}</title>
-    <link rel="stylesheet" href="courses.css">
+    <link rel="stylesheet" href="course_join.css">
 
 </head>
 <body>
@@ -16,26 +16,14 @@
         <button class="button_mycourses"> МОИ КУРСЫ</button>
     </div>
     <div class="container">
-        <h3>МОИ КУРСЫ</h3>
+        <div class="heads"><h1>{{ course.name }}</h1></div>
         <hr>
-        <form id="search_my_courses" method="post" action="file:///Users/maksimzajcev/Documents/GitHub/spb_hakaton/frontend/%7B%7B%20url_for(&#39;search_courses&#39;)%20%7D%7D">
-            <label for="search">Поиск по названию:</label><br>
-            <input type="search" class="find">
-            <button type="submit" class="submits">Найти</button>
-        </form>
-        <div class="courses">
-            {% for course in courses %}
-            <div class="block_course" onclick="go_to_site('{{ course.id }}')">
-                <div class="block_heading">
-                    {{ course.name }}
-                </div>
-                <div class="block_name">{{ course.author }}</div>
-                <hr>
-                <div class="block_description">{{ course.description }}</div>
-                
-            </div>
-            {% endfor %}
-
+        <div class="author"><h3><a href="">{{ course.author }}</a></h3></div>
+        <hr>
+        <div class="description">{{ course.description }}</div>
+        <hr>
+        <div class="join">
+            <button class="joins", onclick="join('{{  user.username  }}', '{{ course.id }}')">Присоединиться</button>
         </div>
     </div>
     <script>
@@ -47,6 +35,11 @@
             const url = "{{ url_for('course_join', id='') }}" + id;
             window.location.href = url;
         }
+        function join(user, course){
+            const url = url_for('course_join') + user + "/" + course;
+            window.location.href = url;
+        }
+
     </script>
 
 
