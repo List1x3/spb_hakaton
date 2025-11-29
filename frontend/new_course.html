@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}</title>
+    <link rel="stylesheet" href="new_course.css">
+
+</head>
+<body>
+    <div class="header-absolute">
+        <div class="avatar-container">
+            
+            <img src="./{{ user.username }}_files/Unknown_person.jpg" alt="Аватар" class="avatar" onerror="this.src='Unknown_person.jpg'" onclick="redirect_to_user('{{ user.username }}')">
+        </div>
+        <button class="button_allcourses">ВСЕ КУРСЫ</button>
+        <button class="button_mycourses"> МОИ КУРСЫ</button>
+    </div>
+    <div class="container">
+        <h1>Новый курс</h1>
+        <form id="newcourse", method="post">
+            <div class="form-group">
+                <label for="username">Название</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Описание</label>
+                <input type="text" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn">Войти</button>
+        </form>
+    </div>
+    <script>
+        function redirect_to_user(username){
+            const url = "{{ url_for('profile', user='')}}" + user.username;
+            window.location.href = url;
+        }
+        function go_to_site(id){
+            const url = "{{ url_for('course_join', id='') }}" + id;
+            window.location.href = url;
+        }
+        function join(user, course){
+            const url = url_for('course_join') + user + "/" + course;
+            window.location.href = url;
+        }
+
+    </script>
+
+
+</body></html>

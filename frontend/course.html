@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}</title>
+    <link rel="stylesheet" href="course.css">
+
+</head>
+<body>
+    <div class="header-absolute">
+        <div class="avatar-container">
+            
+            <img src="./{{ user.username }}_files/Unknown_person.jpg" alt="Аватар" class="avatar" onerror="this.src='Unknown_person.jpg'" onclick="redirect_to_user('{{ user.username }}')">
+        </div>
+        <button class="button_allcourses">ВСЕ КУРСЫ</button>
+        <button class="button_mycourses"> МОИ КУРСЫ</button>
+    </div>
+    <div class="alltogether">
+        <div class="container">
+            <div class="headers">
+                <h1>{{ course.names }}</h1>
+            </div>
+            
+                <div class="blocks">
+                    {% for block in blocks %}
+                    <div class="block_zad" onclick="go_zadan('{{  block.id }}')">
+                        <div class="block_heading"><div class="name_block">{{ block.name }}</div></div>
+                    
+                        <div class="type_block"><h3>{{ bock.type }}</h3></div>
+                    </div> 
+                    {% endfor %}
+                </div>
+           
+            
+        </div>
+        <div class="right_menu">
+            <div class="all">Все</div>
+            <hr>
+            <div class="materials">Материалы</div>
+            <hr>
+            <div class="homework">Домашние задания</div>
+
+        </div>
+    </div>
+    
+    <script>
+        function go_zadan(block_id){
+            const url = "{{ url_for('block', block_id='') }}" + block_id;
+        }
+        function redirect_to_user(username){
+            const url = "{{ url_for('profile', user='')}}" + user.username;
+            window.location.href = url;
+        }
+        function go_to_site(id){
+            const url = "{{ url_for('course_join', id='') }}" + id;
+            window.location.href = url;
+        }
+        function join(user, course){
+            const url = url_for('course_join') + user + "/" + course;
+            window.location.href = url;
+        }
+
+    </script>
+
+
+</body></html>
